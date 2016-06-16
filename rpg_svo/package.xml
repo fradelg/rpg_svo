@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>rpg_svo</name>
+  <version>1.0.0</version>
+  <description>SVO: Fast Semi-Direct Monocular Visual Odometry</description>
+  <author>Christian Forster, Matia Pizzoli, Davide Scaramuzza</author>
+  <maintainer email="engelj@in.tum.de">Jakob Engel</maintainer>
+  <license>see http://vision.in.tum.de/lsdslam </license>
+  <url>http://vision.in.tum.de/lsdslam</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>fast</run_depend>
+  <run_depend>rqt_svo</run_depend>
+  <run_depend>svo</run_depend>
+  <run_depend>svo_analysis</run_depend>
+  <run_depend>svo_msgs</run_depend>
+  <run_depend>svo_ros</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

@@ -11,9 +11,8 @@ ELSE()
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 ENDIF()
 
-
 # Add catkin and required ROS packages
-FIND_PACKAGE(catkin REQUIRED COMPONENTS 
+FIND_PACKAGE(catkin REQUIRED COMPONENTS
   roscpp
   cmake_modules
   nav_msgs
@@ -29,15 +28,15 @@ FIND_PACKAGE(catkin REQUIRED COMPONENTS
   vikit_ros
 )
 
-# Add plain cmake packages 
+# Add plain cmake packages
 FIND_PACKAGE(OpenCV REQUIRED)
-FIND_PACKAGE(Eigen REQUIRED)
+FIND_PACKAGE(Eigen3 REQUIRED)
 FIND_PACKAGE(Sophus REQUIRED)
 FIND_PACKAGE(Boost REQUIRED COMPONENTS thread)
 
 # Describe catkin Project
 catkin_package(
-  DEPENDS Eigen OpenCV Sophus Boost
+  DEPENDS Eigen3 OpenCV Sophus Boost
   CATKIN_DEPENDS roscpp nav_msgs std_msgs visualization_msgs sensor_msgs image_transport cv_bridge tf svo svo_msgs vikit_common vikit_ros
   INCLUDE_DIRS include
   LIBRARIES svo_visualizer
@@ -54,7 +53,7 @@ INCLUDE_DIRECTORIES(
 )
 
 # Set link libraries
-LIST(APPEND LINK_LIBS 
+LIST(APPEND LINK_LIBS
   ${OpenCV_LIBS}
   ${Sophus_LIBRARIES}
   ${Boost_LIBRARIES}
@@ -64,9 +63,32 @@ LIST(APPEND LINK_LIBS
 # Create visualizer library
 ADD_LIBRARY(svo_visualizer src/visualizer.cpp)
 TARGET_LINK_LIBRARIES(svo_visualizer ${LINK_LIBS})
-                                 
-# Create Executables                      
+
+# Create Executables
 ADD_EXECUTABLE(vo src/vo_node.cpp)
 TARGET_LINK_LIBRARIES(vo svo_visualizer)
 ADD_EXECUTABLE(benchmark src/benchmark_node.cpp)
 TARGET_LINK_LIBRARIES(benchmark svo_visualizer)
+
+# Mark executables and/or libraries for installation
+install(
+  TARGETS svo_visualizer vo
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(
+  DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+
+# Install launch and param files
+install(
+  DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+install(
+  DIRECTORY param/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/param
+)
