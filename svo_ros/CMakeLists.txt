@@ -72,7 +72,7 @@ TARGET_LINK_LIBRARIES(benchmark svo_visualizer)
 
 # Mark executables and/or libraries for installation
 install(
-  TARGETS svo_visualizer vo
+  TARGETS svo_visualizer vo benchmark
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
